@@ -1,0 +1,105 @@
+#include <iostream>
+using namespace std;
+
+const int NUMROWS = 7;
+const int NUMSEATS = 4;
+
+void initPlane(char plane[NUMROWS][NUMSEATS]);
+// POSTCONDITION:
+// plane[x][0] == 'A', 0<=x<=6
+// plane[x][1] == 'B', 0<=x<=6
+// plane[x][2] == 'C', 0<=x<=6
+// plane[x][3] == 'D', 0<=x<=6
+
+void printPlane(char msg[], char plane[NUMROWS][NUMSEATS]);
+// POSTCONDITION: The seating layout of the plane has been printed
+// to the standard output with an X displayed for each taken seat.
+
+void getSeat(char &row, char &seat);
+// POSTCONDITION: 1 <= row <= 7, 'A' <= seat <= 'D'
+// Note that getSeat does not check to see if the seat has been taken.
+
+int main()
+{
+int seatsTaken = 0;
+int seats = NUMROWS * NUMSEATS;
+char plane[NUMROWS][NUMSEATS];
+char keepGoing = 'y';
+char row, seat;
+int rowIndex, seatIndex;
+
+initPlane(plane);
+
+cout << "Choose your seat!" << endl;
+while (seatsTaken < seats && keepGoing == 'y')
+{
+//
+// Show layout and get seat choice
+//
+printPlane("Plane layout; X designates taken seats", plane);
+cout << "Enter the row(1-7) and seat(A-D) you would like (e.g., 3D): ";
+getSeat(row, seat);
+
+//
+// Adjust input to use as indices
+//
+rowIndex = row - '1';
+seatIndex = seat - 'A';
+
+//
+// Check to see if seat is taken
+//
+if (plane[rowIndex][seatIndex] == 'X')
+cout << "Sorry, " << row << seat << " is already taken." << endl;
+else
+{
+cout << "OK, you've got " << row << seat << endl;
+plane[rowIndex][seatIndex] = 'X';
+seatsTaken++;
+}
+
+//
+// If there are seats left, see if we should keep going
+//
+
+if (seatsTaken < seats)
+{
+cout << "Choose another seat? (y/n) ";
+cin >> keepGoing;
+}
+else
+cout << "Plane is now full!" << endl;
+}
+
+printPlane("Final seating chart", plane);
+}
+
+void initPlane(char plane[NUMROWS][NUMSEATS])
+{
+int x,y;
+plane[0][0] = ' ';
+for (x = 1; x < NUMROWS; x++)
+{
+plane[0][x] = 'A' + (x - 1);
+}
+for (x = 1; x < NUMROWS; x++)
+{
+for ( y = 0 ; y < 13 ; y++)
+plane[x][y] = ' ';
+}
+for (x = 1; x < NUMROWS ; x++)
+{
+for ( y = 1 ; y < NUMSEATS ; y++)
+plane[x][y] = '*';
+}
+}
+
+void printPlane(char msg[], char plane[NUMROWS][NUMSEATS])
+{
+
+}
+
+void getSeat(char &row, char &seat);
+{
+
+}
